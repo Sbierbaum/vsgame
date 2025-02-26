@@ -1,0 +1,101 @@
+[gd_scene load_steps=14 format=3 uid="uid://t283gavm6p1i"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_hfri0"]
+[ext_resource type="Texture2D" uid="uid://cv2yt6540regs" path="res://assets/Characters(100x100)/Soldier/Soldier/Soldier-Walk.png" id="2_l56tp"]
+[ext_resource type="AudioStream" uid="uid://d3v1t1euifbl3" path="res://deathMonster.wav" id="3_v4xxo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6akrk"]
+atlas = ExtResource("2_l56tp")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1uvgl"]
+atlas = ExtResource("2_l56tp")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aeyvv"]
+atlas = ExtResource("2_l56tp")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdxh0"]
+atlas = ExtResource("2_l56tp")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_in8w2"]
+atlas = ExtResource("2_l56tp")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6eorf"]
+atlas = ExtResource("2_l56tp")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1l2p"]
+atlas = ExtResource("2_l56tp")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s02nd"]
+atlas = ExtResource("2_l56tp")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xahhw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6akrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1uvgl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aeyvv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdxh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_in8w2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6eorf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m1l2p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s02nd")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uudy2"]
+size = Vector2(12, 15)
+
+[node name="Area2D" type="Area2D"]
+position = Vector2(526, 296)
+scale = Vector2(3, 3)
+script = ExtResource("1_hfri0")
+speed = 300
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xahhw")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -1.5)
+shape = SubResource("RectangleShape2D_uudy2")
+
+[node name="ProjectileSpawn" type="Marker2D" parent="."]
+position = Vector2(8, 0.5)
+
+[node name="Invulnerable_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_v4xxo")
+volume_db = -14.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Invulnerable_timer" to="." method="_on_invulnerable_timer_timeout"]

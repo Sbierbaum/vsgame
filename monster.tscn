@@ -1,0 +1,89 @@
+[gd_scene load_steps=13 format=3 uid="uid://bkw41k0mh6gii"]
+
+[ext_resource type="Texture2D" uid="uid://c7revdm0uv08k" path="res://assets/Characters(100x100)/Orc/Orc/Orc-Walk.png" id="1_3hypg"]
+[ext_resource type="Script" path="res://monster.gd" id="1_5116c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g27o3"]
+atlas = ExtResource("1_3hypg")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mq16m"]
+atlas = ExtResource("1_3hypg")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmmum"]
+atlas = ExtResource("1_3hypg")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vh0xc"]
+atlas = ExtResource("1_3hypg")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sets"]
+atlas = ExtResource("1_3hypg")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mx3n"]
+atlas = ExtResource("1_3hypg")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vmm0k"]
+atlas = ExtResource("1_3hypg")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86orr"]
+atlas = ExtResource("1_3hypg")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r0tu6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g27o3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mq16m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jmmum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vh0xc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4sets")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3mx3n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vmm0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86orr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bu2yl"]
+radius = 5.0
+height = 14.0
+
+[node name="RigidBody2D" type="RigidBody2D" groups=["mobs"]]
+collision_layer = 3
+collision_mask = 2
+gravity_scale = 0.0
+script = ExtResource("1_5116c")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_r0tu6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_bu2yl")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

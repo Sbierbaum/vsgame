@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxb4mu27ree8x"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_p76qa"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_p76qa")
+
+[node name="HealthText" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 92.0
+offset_bottom = 63.0
+text = "Health"
+
+[node name="LevelText" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -152.0
+offset_top = 40.0
+offset_right = -100.0
+offset_bottom = 63.0
+grow_horizontal = 0
+text = "Level: 0"

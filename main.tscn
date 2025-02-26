@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=3 uid="uid://lg2lp2f0xiob"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_84x46"]
+[ext_resource type="PackedScene" uid="uid://t283gavm6p1i" path="res://player.tscn" id="1_745yx"]
+[ext_resource type="PackedScene" uid="uid://bkw41k0mh6gii" path="res://monster.tscn" id="2_uw48u"]
+[ext_resource type="Script" path="res://game_manager.gd" id="3_3syw2"]
+[ext_resource type="PackedScene" uid="uid://cxb4mu27ree8x" path="res://HUD.tscn" id="3_18885"]
+[ext_resource type="PackedScene" uid="uid://o1athot5ymcy" path="res://bullet.tscn" id="3_wiywk"]
+[ext_resource type="Texture2D" uid="uid://buuq6blw8nmjv" path="res://game_background.jpg" id="6_2h172"]
+[ext_resource type="PackedScene" uid="uid://147rq08v2pdd" path="res://level_up_menu.tscn" id="7_63a40"]
+[ext_resource type="AudioStream" uid="uid://hivwfgrpvo00" path="res://VSgame.wav" id="9_miw5a"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_5klhq"]
+vertices = PackedVector2Array(1141.98, 10.9609, 1141.01, 639.977, 9.95312, 638.008, 7.03906, 7.03125)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-3, -3, 1152, 1, 1151, 650, 0, 648)])
+
+[sub_resource type="Curve2D" id="Curve2D_5f3bq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1168, 0, 0, 0, 0, 0, 1168, 672, 0, 0, 0, 0, 0, 672, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1168, 0)
+}
+point_count = 5
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_84x46")
+monster_scene = ExtResource("2_uw48u")
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("3_3syw2")
+
+[node name="Player" parent="." instance=ExtResource("1_745yx")]
+position = Vector2(1128, 320)
+Bullet = ExtResource("3_wiywk")
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="MonsterFollowingPlayer" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_5klhq")
+
+[node name="HUD" parent="." instance=ExtResource("3_18885")]
+
+[node name="LevelUpMenu" parent="." instance=ExtResource("7_63a40")]
+process_mode = 3
+
+[node name="Background" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, -32)
+scale = Vector2(1.62222, 0.977778)
+texture = ExtResource("6_2h172")
+centered = false
+
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_5f3bq")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2(1168, 0)
+rotation = 1.5708
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_miw5a")
+volume_db = -7.0
+autoplay = true
+
+[connection signal="health_changed" from="Player" to="HUD" method="_on_player_health_changed"]
+[connection signal="level_upped" from="Player" to="GameManager" method="_on_player_level_upped"]
+[connection signal="level_upped" from="Player" to="HUD" method="_on_player_level_upped"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="upgrade_selected" from="LevelUpMenu" to="GameManager" method="_on_level_up_menu_upgrade_selected"]

@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://147rq08v2pdd"]
+
+[ext_resource type="Texture2D" uid="uid://b4sd47d4x7hbs" path="res://attack_speed_icon.webp" id="1_h63wq"]
+[ext_resource type="Script" path="res://level_up_menu.gd" id="1_srj53"]
+[ext_resource type="Texture2D" uid="uid://haeewgiuqlde" path="res://move_speed_icon.webp" id="2_vf05e"]
+[ext_resource type="Texture2D" uid="uid://cf81gvt1dj6e" path="res://heart_icon.jpg" id="3_60pla"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_srj53")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(1.10701e-06, 0.517032, 0.521023, 1)
+
+[node name="Upgrade1Button" type="TextureButton" parent="."]
+offset_left = 100.0
+offset_top = 200.0
+offset_right = 1124.0
+offset_bottom = 1224.0
+scale = Vector2(0.2, 0.2)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("1_h63wq")
+
+[node name="Upgrade2Button" type="TextureButton" parent="."]
+offset_left = 350.0
+offset_top = 200.0
+offset_right = 1374.0
+offset_bottom = 1224.0
+scale = Vector2(0.2, 0.2)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("2_vf05e")
+
+[node name="Upgrade3Button" type="TextureButton" parent="."]
+offset_left = 600.0
+offset_top = 200.0
+offset_right = 1600.0
+offset_bottom = 1280.0
+scale = Vector2(0.2, 0.2)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("3_60pla")
+
+[connection signal="pressed" from="Upgrade1Button" to="." method="_on_upgrade_1_button_pressed"]
+[connection signal="pressed" from="Upgrade2Button" to="." method="_on_upgrade_2_button_pressed"]
+[connection signal="pressed" from="Upgrade3Button" to="." method="_on_upgrade_3_button_pressed"]
